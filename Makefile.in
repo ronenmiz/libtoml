@@ -2,7 +2,7 @@ SRCS := toml.c toml_parse.c
 OBJS := $(SRCS:.c=.o)
 
 CC := @CC@
-CFLAGS := @CFLAGS@ -O0 -I.
+CFLAGS := @CFLAGS@ -Wall -O0 -I.
 LDFLAGS := @LDFLAGS@
 
 LIBNAME := toml
@@ -36,10 +36,10 @@ test: test.o shared
 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) -l$(LIBNAME) -lcunit -lncurses
 
 %.c: %.rl
-	ragel -G2 $<
+	ragel $<
 
 %.dot: %.rl
-	ragel -G2 -V $< > $@
+	ragel -V $< > $@
 
 %.png: %.dot
 	dot -Tpng -o$@ $<
